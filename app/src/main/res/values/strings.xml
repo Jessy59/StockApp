@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyStockApp</string>
+    <string name="img_scan_code_barre">L\'image qui permet de déclencher la caméra</string>
 </resources>
