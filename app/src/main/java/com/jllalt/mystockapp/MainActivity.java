@@ -13,16 +13,15 @@ import androidx.core.content.ContextCompat;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.jllalt.mystockapp.configuration.AppComponent;
 import com.jllalt.mystockapp.configuration.DaggerAppComponent;
-import com.jllalt.mystockapp.services.ProductServices;
+import com.jllalt.mystockapp.data.manager.ProductManager;
 
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
     @Inject
-    ProductServices productServices;
+    ProductManager productManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
             // nous récupérons le contenu du code barre
-            String codeBarre = scanningResult.getContents();
-            Toast.makeText(this.getApplicationContext(), "Code barre : " + codeBarre, Toast.LENGTH_SHORT).show();
-            productServices.log();
+            String codeEan = scanningResult.getContents();
+            Toast.makeText(this.getApplicationContext(), "Code barre : " + codeEan, Toast.LENGTH_SHORT).show();
+            productManager.addProduct(codeEan);
         }
         // Appeler le service de récupération des informations.
         // Ouvrir popup avec les informations de l'article.
